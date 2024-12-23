@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'marieemko/ic-webapp:v1.0' // Remplace par le nom de ton image Docker
+        DOCKER_IMAGE = 'marieemko/ic-webapp:v1.0'
+        DOCKER_USERNAME = 'marieemko'
+	DOCKER_PASSWORD = 'ndomemouto'
         GIT_URL = 'https://github.com/Lacasseusededelire/projet_final_grp1.git'
-        GIT_BRANCH = 'main' // Remplace par la branche que tu souhaites utiliser
+        GIT_BRANCH = 'main'
     }
 
     stages {
@@ -26,14 +28,14 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                echo 'Pushing the Docker image to Docker Hub...'
-                sh '''
-                docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-                docker push ${DOCKER_IMAGE}
-                '''
+                script {
+                    // Login non interactif
+                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                    // Push de l'image Docker
+                    sh 'docker push marieemko/ic-webapp:v1.0'
+                }
             }
-        }
-
+	}   
         stage('Deploy Application') {
             steps {
                 echo 'Deploying the application...'
