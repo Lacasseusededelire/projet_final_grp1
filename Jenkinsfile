@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'marieemko/ic-webapp:v1.0'
         DOCKER_USERNAME = 'marieemko'
-	DOCKER_PASSWORD = 'ndomemouto'
+	DOCKER_PASSWORD = 'Ndomemouto2105@'
         GIT_URL = 'https://github.com/Lacasseusededelire/projet_final_grp1.git'
         GIT_BRANCH = 'main'
     }
